@@ -28,6 +28,10 @@ RUN apt-get update ; \
     rm -f /lib/systemd/system/plymouth* ; \
     rm -f /lib/systemd/system/systemd-update-utmp*
 
-VOLUME ["/sys/fs/cgroup"]
+WORKDIR /
 
-CMD ["/usr/lib/systemd/systemd"]
+# VOLUME ["/sys/fs/cgroup"]
+VOLUME [ "/tmp", "/run", "/run/lock" ]
+
+#CMD ["/usr/lib/systemd/systemd"]
+CMD [ "/lib/systemd/systemd", "log-level=info", "unit=sysinit.target" ]
